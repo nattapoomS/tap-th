@@ -1,0 +1,1 @@
+ทำtime line แล้วpin text ขวา
