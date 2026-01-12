@@ -4,6 +4,7 @@ import Vision from "@/components/vision";
 import Exp from "@/components/exp";
 import Captions from "@/components/captions";
 import Highlights from "@/components/Highlights";
+import Crusher from "@/components/Crusher";
 
 export default function Home() {
   return (
@@ -14,6 +15,8 @@ export default function Home() {
       <Exp />
       <Captions />
       <Highlights />
+      <Crusher />
+      <Crusher />
     </main>
   );
 }

@@ -18,7 +18,7 @@ export default function Navbar() {
             </div>
 
             {/* Navigation Links and Contact Button - Pill Container */}
-            <div className="hidden md:flex items-center bg-zinc-500/20 backdrop-blur-md rounded-2xl px-10 pr-2 py-1 gap-20 border border-white/5">
+            <div className="hidden md:flex items-center bg-zinc-500/50 backdrop-blur-md rounded-2xl px-10 pr-2 py-1 gap-12 border border-white/5">
                 <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">เทคโนโลยี</Link>
                 <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">การผลิต</Link>
                 <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">บริษัท</Link>

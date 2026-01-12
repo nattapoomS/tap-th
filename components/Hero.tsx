@@ -13,14 +13,14 @@ export default function Hero() {
                     className="h-full w-full object-cover opacity-80"
                 >
                     {/* Using a stock industrial footage placeholder */}
-                    <source src="/hero-video.mp4" type="video/mp4" />
+                    <source src="/0103(1).mp4" type="video/mp4" />
                 </video>
                 {/* subtle overlay to ensure text readability */}
                 <div className="absolute inset-0 bg-black/20" />
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 container mx-auto h-full flex flex-col justify-end pb-10 pl-0">
+            <div className="relative z-10 container mx-auto h-full flex flex-col justify-end pb-10 pl-10">
                 <div className="max-w-2xl">
                     <h1 className="text-8xl text-stroke-red-50 text-white/80 leading-[1.1] tracking-wide drop-shadow-lg">
                         ตัวแทนจำหน่าย <br />
@@ -33,8 +33,8 @@ export default function Hero() {
             <div className="absolute bottom-8 right-8 z-20 hidden lg:block">
                 <div className="w-[300px] h-[160px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black/40 backdrop-blur-md relative group cursor-pointer transition-transform hover:scale-105">
                     {/* Map Placeholder Image */}
-                    
-                    
+
+
                     {/* Pin Icon overlay */}
                     <div className="absolute inset-0 flex items-center justify-center">
                         <iframe
