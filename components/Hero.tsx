@@ -1,8 +1,34 @@
-import Image from "next/image";
+'use client'
+
+import { useRef, useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Hero() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const ctx = gsap.context(() => {
+            gsap.to(containerRef.current, {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: "+=100%",
+                    pin: true,
+                    scrub: true,
+                },
+                clipPath: "inset(0 1% 1% 1% round 2rem)",
+                ease: "none",
+            });
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <div className="relative h-screen w-full overflow-hidden bg-zinc-900 font-kanit">
+        <div ref={containerRef} className="relative h-screen w-full overflow-hidden bg-zinc-900 font-kanit [clip-path:inset(0_0_0_0)]">
             {/* Background Video */}
             <div className="absolute inset-0 z-0">
                 <video
@@ -13,7 +39,7 @@ export default function Hero() {
                     className="h-full w-full object-cover opacity-80"
                 >
                     {/* Using a stock industrial footage placeholder */}
-                    <source src="/0103(1).mp4" type="video/mp4" />
+                    <source src="/vdo/0103(1).mp4" type="video/mp4" />
                 </video>
                 {/* subtle overlay to ensure text readability */}
                 <div className="absolute inset-0 bg-black/20" />

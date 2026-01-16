@@ -92,9 +92,9 @@ export default function Highlights() {
     };
 
     return (
-        <section className="overflow-hidden w-full min-h-screen bg-white py-40 px-6 flex flex-col justify-center">
+        <section className="overflow-hidden w-full min-h-screen bg-white py-40 px-6 flex flex-col justify-center pr-0">
             {/* Header */}
-            <div className="max-w-[90rem] mx-auto w-full mb-12 pl-20">
+            <div className="max-w-[90rem] mx-auto w-full mb-12 pl-20 ">
                 <h2
                     className="text-8xl leading- tracking-wide drop-shadow-lg"
                     style={{
@@ -111,11 +111,11 @@ export default function Highlights() {
             </div>
 
             {/* Carousel Container */}
-            <div className="max-w-[90rem] left-20  mx-auto w-full relative">
+            <div className="max-w-[100rem] left-40 mx-auto w-full relative  pr-0">
                 <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}
-                    className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide"
+                    className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide pr-0"
                     style={{
                         scrollbarWidth: 'none',
                         msOverflowStyle: 'none',
@@ -175,8 +175,8 @@ export default function Highlights() {
                             key={index}
                             onClick={() => scrollToSlide(index)}
                             className={`rounded-full transition-all duration-300 ${index === currentSlide
-                                    ? "w-10 h-2 bg-neutral-600"
-                                    : "w-2 h-2 bg-neutral-400 hover:bg-neutral-500"
+                                ? "w-10 h-2 bg-neutral-600"
+                                : "w-2 h-2 bg-neutral-400 hover:bg-neutral-500"
                                 }`}
                         />
                     ))}

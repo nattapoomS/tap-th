@@ -2,34 +2,21 @@
 
 import Image from "next/image";
 import groupPhoto from "@/app/img/Group 3.png";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronRight } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Exp() {
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+
         const ctx = gsap.context(() => {
-            // gsap.fromTo(containerRef.current,{x: -200, opacity: 1}, {
-            //     x: 0,
-            //     opacity: 1,
-            //     duration: 4,
-            //     ease: "power2.out",
-            //     scrollTrigger: {
-            //         trigger: containerRef.current,
-            //         start: "top bottom",
-            //         end: "center 0",
-            //         scrub: 3,
-            //         markers: true,
-            //     },
-            // });
-            // Image animation: Start with 50% visible (clipped from right), expand to full on scrub
+
             gsap.fromTo(
                 imageRef.current,
                 {
@@ -44,7 +31,7 @@ export default function Exp() {
                         start: "top 80%", // Start animation when container hits 80% viewport
                         end: "0 0", // Finish when center hits center
                         scrub: 2, // Smooth scrub
-                        //markers: true,
+
                     },
                 }
             );
@@ -62,7 +49,7 @@ export default function Exp() {
                         start: "top top", // Start animation when container hits 80% viewport
                         end: "95% 0", // Finish when center hits center
                         scrub: 1, // Smooth scrub
-                        //markers: true,
+
                         pin: true,
                     },
                 }
@@ -81,10 +68,10 @@ export default function Exp() {
                     ease: "power1.out",
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: "-10% top",   // Sync with clipPath
+                        start: "-15% top",   // Sync with clipPath
                         end: "center 0",    // Sync with clipPath
                         scrub: 3,           // Sync speed
-                        // markers: true,
+
                     },
                 }
             );
