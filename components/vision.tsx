@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 
 export default function Vision() {
     return (
-        <section className="bg-white py-54 px-6 md:px-12 lg:px-48 w-full flex flex-col md:flex-row justify-between items-start gap-12">
+        <section className="bg-white py-20 md:py-54 px-6 md:px-12 lg:px-48 w-full flex flex-col md:flex-row justify-between items-start gap-12">
             {/* Title Section */}
             <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-orange-600 rounded-full"></span>

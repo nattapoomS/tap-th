@@ -1,35 +1,38 @@
 "use client";
 
+import groupPhoto from "@/app/img/Generated.png";
+import groupPhoto2 from "@/app/img/Generated2.png";
+import groupPhoto3 from "@/app/img/Generated3.png";
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface HighlightSlide {
     title: string;
     description: string;
-    image: string;
+    image: string | StaticImageData;
 }
 
 const slides: HighlightSlide[] = [
     {
-        title: "ดีไซน์ใหม่พร้อม Liquid Glass",
-        description: "ทั้งสวยงาม เพลิดเพลิน และรู้สึกคุ้นเคยในทันที",
-        image: "/mockup.png",
+        title: "รถขุดไฮดรอลิกประสิทธิภาพสูง",
+        description: "พลังขุดลึกสูงสุด 12 เมตร พร้อมระบบควบคุมที่แม่นยำ",
+        image: groupPhoto,
     },
     {
-        title: "ประสบการณ์การขับขี่ที่ไร้รอยต่อ",
-        description: "เทคโนโลยีที่ทำให้คุณสะดวกสบาย",
-        image: "/mockup.png",
+        title: "รถตักล้อยางขนาดใหญ่",
+        description: "ความจุบุ้งกี๋ 5 ลูกบาศก์เมตร ทำงานหนักได้ทุกสภาพพื้นที่",
+        image: groupPhoto2,
     },
     {
-        title: "ความปลอดภัยระดับสูงสุด",
-        description: "ปกป้องคุณและครอบครัวทุกการเดินทาง",
-        image: "/mockup.png",
+        title: "เครนยกของหนักระดับอุตสาหกรรม",
+        description: "รับน้ำหนักได้สูงสุด 500 ตัน พร้อมระบบความปลอดภัยมาตรฐานสากล",
+        image: groupPhoto3,
     },
     {
-        title: "พลังงานที่ยั่งยืน",
-        description: "ขับเคลื่อนอนาคตด้วยพลังงานสะอาด",
-        image: "/mockup.png",
+        title: "รถบรรทุกดั๊มพ์ขนาดยักษ์",
+        description: "บรรทุกได้ 100 ตัน เหมาะสำหรับงานเหมืองและก่อสร้างขนาดใหญ่",
+        image: groupPhoto2,
     },
 ];
 
@@ -94,9 +97,9 @@ export default function Highlights() {
     return (
         <section className="overflow-hidden w-full min-h-screen bg-white py-40 px-6 flex flex-col justify-center pr-0">
             {/* Header */}
-            <div className="max-w-[90rem] mx-auto w-full mb-12 pl-20 ">
+            <div className="max-w-7xl mx-auto w-full mb-12 pl-6 md:pl-20 ">
                 <h2
-                    className="text-8xl leading- tracking-wide drop-shadow-lg"
+                    className="text-5xl md:text-8xl leading-none tracking-wide drop-shadow-lg"
                     style={{
                         background: 'linear-gradient(185deg, #D9D9D9 0%, #767676 100%)',
                         WebkitBackgroundClip: 'text',
@@ -111,7 +114,7 @@ export default function Highlights() {
             </div>
 
             {/* Carousel Container */}
-            <div className="max-w-[100rem] left-40 mx-auto w-full relative  pr-0">
+            <div className="max-w-[100rem] mx-auto w-full relative pr-0 md:pl-40">
                 <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}

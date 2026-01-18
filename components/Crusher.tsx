@@ -1,34 +1,37 @@
 "use client";
 
+import groupPhoto from "@/app/img/Generated.png";
+import groupPhoto2 from "@/app/img/Generated2.png";
+import groupPhoto3 from "@/app/img/Generated3.png";
+import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 
 interface CrusherCard {
     title: string;
     description: string;
     footer?: string;
-    image: string;
+    image: StaticImageData;
 }
 
 const cards: CrusherCard[] = [
     {
-        title: "CarPlay ที่ออกแบบมาใหม่พร้อม Liquid Glass",
-        description: "ตอบกลับด้วย Tapback ในแอปข้อความ ติดตามกิจกรรมสด และดูข้อมูลได้มากขึ้น เพียงแค่เหลือบมอง เพื่อให้คุณต่อติดกับทุกเรื่องได้เลยโดยไม่เสียสมาธิระหว่างขับรถ*",
-        footer: "จะใช้งานได้บน iPhone",
-        image: "/mockup.png",
+        title: "เครื่องบดคอนกรีตแบบกราม (Jaw Crusher)",
+        description: "ออกแบบมาเพื่อบดคอนกรีตขนาดใหญ่ให้เป็นชิ้นเล็ก รองรับวัสดุขนาดสูงสุด 1,200 มม. พร้อมกำลังการผลิต 500 ตัน/ชั่วโมง เหมาะสำหรับงานรื้อถอนอาคารและโครงสร้างขนาดใหญ่",
+        footer: "มาตรฐาน ISO 9001:2015",
+        image: groupPhoto,
     },
     {
-        title: "แผนที่ที่เข้าใจว่าคุณอยากไปทางไหนมากกว่า",
-        description: "แอปแผนที่จะเรียนรู้เส้นทางที่คุณใช้เป็นประจำและสามารถแจ้งเตือนความล่าช้าที่หนักติดบกสี่ให้คุณรู้ล่วงหน้าได้ตั้งแต่ก่อนออกจากบ้าน ไม่ว่าที่จะัตร ของคุณจะเปลี่ยนไปอย่างไร iPhone ก็ปรับตามได้ เพื่อให้การเดินทางของคุณราบรื่นเสมอ",
-        footer: "จะใช้งานได้บน iPhone",
-        image: "/mockup.png",
+        title: "เครื่องบดคอนกรีตแบบกรวย (Cone Crusher)",
+        description: "เทคโนโลยีบดขั้นที่สองที่มีประสิทธิภาพสูง ให้ขนาดวัสดุสม่ำเสมอ ระบบไฮดรอลิกอัตโนมัติปรับช่องบดได้ตามต้องการ ประหยัดพลังงานสูงสุด 30%",
+        footer: "รับประกัน 3 ปี",
+        image: groupPhoto2,
     },
     {
-        title: "คุณสมบัติ \"ที่ที่เคยไป\" ในแอปแผนที่",
-        description: "ไม่สื้อจริก ว่าเคลย่ไหนบ้าง เมื่อมีคุณสมบัติ \"ที่ที่เคยไป\" มาเป็นผู้ช่วยร่า ตราวนี้ คุณก็ค้นหาภาพถ่ายๆ ที่เกยละ-ระหว่างทริป แล้วแชร์ได้ง่ายๆ แค่แตะครั้งเดียว*",
-        footer: "จะใช้งานได้บน iPhone",
-        image: "/mockup.png",
+        title: "เครื่องบดคอนกรีตแบบกระแทก (Impact Crusher)",
+        description: "เหมาะสำหรับการบดคอนกรีตเสริมเหล็ก แยกเหล็กออกจากคอนกรีตได้อัตโนมัติ ผลิตมวลรวมรีไซเคิลคุณภาพสูง พร้อมระบบกรองฝุ่นมาตรฐานสิ่งแวดล้อม",
+        footer: "ลดต้นทุน 40%",
+        image: groupPhoto3,
     },
 ];
 
@@ -51,7 +54,7 @@ export default function Crusher() {
     );
 
     return (
-        <section className=" pb-24 pl-40 w-full min-h-screen bg-white px-8 md:px-16 lg:px-24">
+        <section className=" pb-24 pl-6 md:pl-40 w-full min-h-screen bg-white px-8 md:px-16 lg:px-24">
             {/* Header */}
             <div className="max-w-7xl mx-auto mb-16">
                 <p className="text-lg text-neutral-800 font-medium mb-2">Crusher</p>
@@ -59,9 +62,9 @@ export default function Crusher() {
                     พร้อมสยบทุกงาน
                 </h1>
                 <p className="text-xl md:text-2xl text-neutral-600 leading-relaxed max-w-4xl">
-                    ไม่ว่าจะจัดการงานทั่วไปในแต่ละวันอย่างรวดเร็ว ทำกิจกรรมที่คุณชื่นชอบ
-                    หรือติดเทอร์โบให้เวิร์กโฟลว์ระดับโปร คุณก็ทำทั้งหมดนี้ได้โดยแทบไม่ต้อง
-                    ออกแรงเลย
+                    ไม่ว่าจะเป็นงานรื้อถอนอาคารขนาดใหญ่ งานรีไซเคิลคอนกรีตเก่า
+                    หรือการผลิตมวลรวมคุณภาพสูง เครื่องบด Crusher ของเราพร้อมรองรับ
+                    ทุกความต้องการด้วยประสิทธิภาพสูงสุด
                 </p>
             </div>
 

@@ -46,9 +46,9 @@ export default function Hero() {
             </div>
 
             {/* Main Content */}
-            <div className="relative z-10 container mx-auto h-full flex flex-col justify-end pb-10 pl-10">
+            <div className="relative z-10 container mx-auto h-full flex flex-col justify-end pb-20 pl-6 md:pb-10 md:pl-10">
                 <div className="max-w-2xl">
-                    <h1 className="text-8xl text-stroke-red-50 text-white/80 leading-[1.1] tracking-wide drop-shadow-lg">
+                    <h1 className="text-5xl md:text-8xl text-stroke-red-50 text-white/80 leading-[1.1] tracking-wide drop-shadow-lg">
                         ตัวแทนจำหน่าย <br />
                         <span className="text-white/80">อย่างเป็น ทางการ</span>
                     </h1>

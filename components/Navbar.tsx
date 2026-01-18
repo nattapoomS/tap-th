@@ -30,7 +30,7 @@ export default function Navbar() {
                     start: "27% top",
                     end: "28% top", // Animate over first 200px of scroll
                     scrub: 2,
-                    markers: true,
+                    //markers: true,
                 }
             });
 
