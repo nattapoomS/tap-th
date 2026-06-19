@@ -60,7 +60,7 @@ export default function Navbar() {
         <nav ref={navRef} className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-8 py-4 md:py-6 font-kanit pointer-events-none">
             {/* Logo Area (Outer) */}
             <div ref={logoOuterRef} className="flex items-center pointer-events-auto">
-                <div className="relative h-12 w-40">
+                <Link href="#hero" className="relative h-12 w-40">
                     <Image
                         src="/logo.svg"
                         alt="TAP Logo"
@@ -68,14 +68,14 @@ export default function Navbar() {
                         className="object-contain" // Use object-contain to keep aspect ratio
                         priority
                     />
-                </div>
+                </Link>
             </div>
 
             {/* Navigation Links and Contact Button - Pill Container */}
             <div className="hidden md:flex items-center bg-zinc-500/50 backdrop-blur-md rounded-2xl px-2 py-2 border border-white/5 pointer-events-auto">
                 {/* Logo Area (Inner) - Hidden initially */}
                 <div ref={logoInnerRef} className="relative h-8 w-0 overflow-hidden">
-                    <div className="relative h-full w-24"> {/* Fixed width container for inner logo */}
+                    <Link href="#hero" className="relative block h-full w-24"> {/* Fixed width container for inner logo */}
                         <Image
                             src="/logo.svg"
                             alt="TAP Logo"
@@ -83,17 +83,17 @@ export default function Navbar() {
                             className="object-contain"
                             priority
                         />
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-12 px-8">
-                    <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">เทคโนโลยี</Link>
-                    <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">การผลิต</Link>
-                    <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">บริษัท</Link>
-                    <Link href="#" className="text-white text-x font-light hover:text-gray-300 transition-colors">นักลงทุน</Link>
+                    <Link href="#vision" className="text-white text-sm font-light hover:text-gray-300 transition-colors">วิสัยทัศน์</Link>
+                    <Link href="#captions" className="text-white text-sm font-light hover:text-gray-300 transition-colors">วิธีคิด</Link>
+                    <Link href="#solutions" className="text-white text-sm font-light hover:text-gray-300 transition-colors">โซลูชัน</Link>
+                    <Link href="#crusher" className="text-white text-sm font-light hover:text-gray-300 transition-colors">ผลิตภัณฑ์</Link>
                 </div>
 
-                <Link href="#" className="bg-white text-black text-x font-light px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors ml-2">
+                <Link href="#cta" className="bg-white text-black text-sm font-light px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors ml-2">
                     ติดต่อ
                 </Link>
             </div>

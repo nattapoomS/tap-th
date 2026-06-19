@@ -57,7 +57,7 @@ export default function Captions() {
     ];
 
     return (
-        <section className="w-full min-h-screen bg-neutral-100 flex items-center justify-center p-5">
+        <section id="captions" className="w-full min-h-screen bg-neutral-100 flex items-center justify-center p-5">
             {/* Bento Grid Container - Full Width */}
             <div className="w-full  h-full grid grid-cols-1 lg:grid-cols-2 gap-5">
                 {/* Left Bento Box - Quote */}

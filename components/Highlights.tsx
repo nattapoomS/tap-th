@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { Play, Pause } from "lucide-react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface HighlightSlide {
     title: string;
@@ -37,6 +39,7 @@ export default function Highlights() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const headingRef = useRef<HTMLHeadingElement>(null);
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
     // Scroll to specific slide
@@ -91,12 +94,61 @@ export default function Highlights() {
         setIsPlaying(!isPlaying);
     };
 
+    // การ์ดค่อยๆ โผล่แบบ stagger ตอน scroll เข้ามา
+    useLayoutEffect(() => {
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        gsap.registerPlugin(ScrollTrigger);
+        const mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.from(headingRef.current, {
+                y: 30,
+                autoAlpha: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
+            });
+            // .slice() กัน div peek ท้ายสุด (ไม่ใช่การ์ด)
+            const cards = gsap.utils.toArray<HTMLElement>(el.children).slice(0, slides.length);
+            gsap.from(cards, {
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                stagger: 0.1,
+                scrollTrigger: { trigger: el, start: "top 80%" },
+            });
+        });
+        return () => mm.revert();
+    }, []);
+
+    // ลากด้วยเมาส์: กดค้างแล้วลากเพื่อเลื่อน
+    const drag = useRef({ down: false, startX: 0, startScroll: 0 });
+
+    const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft };
+        el.setPointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+        const el = scrollContainerRef.current;
+        if (!el || !drag.current.down) return;
+        el.scrollLeft = drag.current.startScroll - (e.clientX - drag.current.startX);
+    };
+
+    const endDrag = () => {
+        drag.current.down = false;
+    };
+
     return (
-        <section className="overflow-hidden w-full min-h-screen bg-white py-40 flex flex-col justify-center">
+        <section id="solutions" className="overflow-hidden w-full min-h-screen bg-white py-40 flex flex-col justify-center">
             {/* Header — ขอบซ้ายผ่าน --page-gutter (ตรงกับ Crusher) */}
             <div className="mb-12 pr-6 pl-[var(--page-gutter)]">
                 <h2
-                    className="text-4xl sm:text-6xl lg:text-8xl leading-tight tracking-wide drop-shadow-lg"
+                    ref={headingRef}
+                    className="text-5xl md:text-6xl lg:text-7xl leading-tight tracking-wide drop-shadow-lg"
                     style={{
                         background: 'linear-gradient(185deg, #D9D9D9 0%, #767676 100%)',
                         WebkitBackgroundClip: 'text',
@@ -114,7 +166,11 @@ export default function Highlights() {
             <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
-                className="flex gap-6 w-full overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pr-6 pl-[var(--page-gutter)] [scroll-padding-left:var(--page-gutter)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                onPointerDown={onPointerDown}
+                onPointerMove={onPointerMove}
+                onPointerUp={endDrag}
+                onPointerCancel={endDrag}
+                className="flex gap-6 w-full overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pr-6 pl-[var(--page-gutter)] [scroll-padding-left:var(--page-gutter)] cursor-grab active:cursor-grabbing select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                 style={{
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
@@ -138,6 +194,14 @@ export default function Highlights() {
                                 </div>
                                 {/* Text Content */}
                                 <div className="p-8">
+                                    <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C71F2F] mb-3">
+                                        <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+                                        <span
+                                            className="h-px w-12"
+                                            style={{ background: "linear-gradient(to right,#C71F2F,#C71F2F,#c71f3075,#c71f3000)" }}
+                                        />
+                                        <span className="text-neutral-400">Step {index + 1} of {slides.length}</span>
+                                    </p>
                                     <h3 className="text-2xl md:text-3xl font-medium text-neutral-800 leading-snug mb-2">
                                         {slide.title}
                                     </h3>
