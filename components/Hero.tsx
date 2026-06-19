@@ -28,7 +28,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <div ref={containerRef} className="relative h-screen w-full overflow-hidden bg-zinc-900 font-kanit [clip-path:inset(0_0_0_0)]">
+        <div id="hero" ref={containerRef} className="relative h-screen w-full overflow-hidden bg-zinc-900 font-kanit [clip-path:inset(0_0_0_0)]">
             {/* Background Video */}
             <div className="absolute inset-0 z-0">
                 <video
