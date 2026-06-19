@@ -30,7 +30,6 @@ export default function Navbar() {
                     start: "27% top",
                     end: "28% top", // Animate over first 200px of scroll
                     scrub: 2,
-                    //markers: true,
                 }
             });
 
@@ -58,7 +57,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav ref={navRef} className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-6 font-kanit pointer-events-none">
+        <nav ref={navRef} className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-8 py-4 md:py-6 font-kanit pointer-events-none">
             {/* Logo Area (Outer) */}
             <div ref={logoOuterRef} className="flex items-center pointer-events-auto">
                 <div className="relative h-12 w-40">

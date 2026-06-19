@@ -1,38 +1,35 @@
 "use client";
 
-import groupPhoto from "@/app/img/Generated.png";
-import groupPhoto2 from "@/app/img/Generated2.png";
-import groupPhoto3 from "@/app/img/Generated3.png";
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 interface HighlightSlide {
     title: string;
     description: string;
-    image: string | StaticImageData;
+    image: string;
 }
 
 const slides: HighlightSlide[] = [
     {
-        title: "รถขุดไฮดรอลิกประสิทธิภาพสูง",
-        description: "พลังขุดลึกสูงสุด 12 เมตร พร้อมระบบควบคุมที่แม่นยำ",
-        image: groupPhoto,
+        title: "Raw Material Conveying Unit",
+        description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่ วัสดุกัดกร่อนสูง ดินเหนียวและวัสดุเปียก พร้อม Heavy Duty Screen คัดแยกวัสดุ",
+        image: "/products/raw-material.jpg",
     },
     {
-        title: "รถตักล้อยางขนาดใหญ่",
-        description: "ความจุบุ้งกี๋ 5 ลูกบาศก์เมตร ทำงานหนักได้ทุกสภาพพื้นที่",
-        image: groupPhoto2,
+        title: "Washing & Grading",
+        description: "NT & YS Series Washing Screen ล้างและคัดเกรดหินด้วยระบบสั่นสะเทือน เพิ่มอัตราการนำวัสดุกลับมาใช้",
+        image: "/products/washing-grading.png",
     },
     {
-        title: "เครนยกของหนักระดับอุตสาหกรรม",
-        description: "รับน้ำหนักได้สูงสุด 500 ตัน พร้อมระบบความปลอดภัยมาตรฐานสากล",
-        image: groupPhoto3,
+        title: "Fine Sand Recycling",
+        description: "FWD & FW Series Sand Washing Machine กู้คืนทรายละเอียด ลดการสูญเสียเนื้อทรายในกระบวนการล้าง",
+        image: "/products/fine-sand.png",
     },
     {
-        title: "รถบรรทุกดั๊มพ์ขนาดยักษ์",
-        description: "บรรทุกได้ 100 ตัน เหมาะสำหรับงานเหมืองและก่อสร้างขนาดใหญ่",
-        image: groupPhoto2,
+        title: "Aggregate Washing",
+        description: "XSJ60A Stone Washing Machine ล้างหินคุณภาพสูง พร้อมระบบบำบัดน้ำหมุนเวียน zero-emission",
+        image: "/products/aggregate.png",
     },
 ];
 
@@ -95,11 +92,11 @@ export default function Highlights() {
     };
 
     return (
-        <section className="overflow-hidden w-full min-h-screen bg-white py-40 px-6 flex flex-col justify-center pr-0">
-            {/* Header */}
-            <div className="max-w-7xl mx-auto w-full mb-12 pl-6 md:pl-20 ">
+        <section className="overflow-hidden w-full min-h-screen bg-white py-40 flex flex-col justify-center">
+            {/* Header — ขอบซ้ายผ่าน --page-gutter (ตรงกับ Crusher) */}
+            <div className="mb-12 pr-6 pl-[var(--page-gutter)]">
                 <h2
-                    className="text-5xl md:text-8xl leading-none tracking-wide drop-shadow-lg"
+                    className="text-4xl sm:text-6xl lg:text-8xl leading-tight tracking-wide drop-shadow-lg"
                     style={{
                         background: 'linear-gradient(185deg, #D9D9D9 0%, #767676 100%)',
                         WebkitBackgroundClip: 'text',
@@ -109,21 +106,20 @@ export default function Highlights() {
                         WebkitTextStroke: '1.5px #999999',
                     }}
                 >
-                    ไฮไลท์ต่างๆ
+                    โซลูชันของเรา
                 </h2>
             </div>
 
-            {/* Carousel Container */}
-            <div className="max-w-[100rem] mx-auto w-full relative pr-0 md:pl-40">
-                <div
-                    ref={scrollContainerRef}
-                    onScroll={handleScroll}
-                    className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide pr-0"
-                    style={{
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none',
-                    }}
-                >
+            {/* Carousel — full-bleed: ใบแรกตรงหัวข้อ (--page-gutter) เลื่อนหลุดจอขวาได้ */}
+            <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="flex gap-6 w-full overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pr-6 pl-[var(--page-gutter)] [scroll-padding-left:var(--page-gutter)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                style={{
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                }}
+            >
                     {slides.map((slide, index) => (
                         <div
                             key={index}
@@ -152,9 +148,8 @@ export default function Highlights() {
                             </div>
                         </div>
                     ))}
-                    {/* Peek space at the end */}
-                    <div className="flex-shrink-0 w-8"></div>
-                </div>
+                {/* Peek space at the end */}
+                <div className="flex-shrink-0 w-8"></div>
             </div>
 
             {/* Bottom Controls */}

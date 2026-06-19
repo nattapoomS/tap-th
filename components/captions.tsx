@@ -57,15 +57,15 @@ export default function Captions() {
     ];
 
     return (
-        <section className="w-full min-h-screen lg:h-screen bg-neutral-100 flex items-center justify-center p-3 md:p-5">
+        <section className="w-full min-h-screen bg-neutral-100 flex items-center justify-center p-5">
             {/* Bento Grid Container - Full Width */}
-            <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-5">
+            <div className="w-full  h-full grid grid-cols-1 lg:grid-cols-2 gap-5">
                 {/* Left Bento Box - Quote */}
-                <div className="bg-white rounded-[24px] md:rounded-[48px] p-6 md:p-12 lg:p-20 flex flex-col justify-center shadow-sm">
-                    <span className="text-orange-500 pl-0 md:pl-20 text-lg md:text-xl font-medium mb-4 md:mb-8">วิธีคิด</span>
+                <div className="bg-white rounded-[48px] p-8 md:p-12 lg:p-20 flex flex-col justify-center shadow-sm">
+                    <span className="text-orange-500 pl-0 lg:pl-20 text-xl font-medium mb-8">วิธีคิด</span>
                     <blockquote
                         ref={quoteRef}
-                        className="text-2xl pl-0 md:pl-20 md:text-5xl lg:text-6xl xl:text-7xl leading-tight text-neutral-800"
+                        className="text-3xl sm:text-4xl pl-0 lg:pl-20 md:text-5xl lg:text-6xl xl:text-7xl leading-tight text-neutral-800"
                     >
                         {quoteText.map((text, index) => {
                             const isQuote = text.includes('"');
@@ -86,7 +86,7 @@ export default function Captions() {
                 </div>
 
                 {/* Right Bento Box - Profile Image */}
-                <div className="bg-[#000000]/20 rounded-[24px] md:rounded-[48px] p-4 md:p-8 flex items-center justify-center shadow-sm overflow-hidden min-h-[300px] md:min-h-0">
+                <div className="bg-[#000000]/20 rounded-[48px] p-8 flex items-center justify-center shadow-sm overflow-hidden">
                     <div className="relative w-full h-full max-w-[800px] max-h-[800px] aspect-square rounded-full overflow-hidden">
                         <Image
                             src={profileImage}

@@ -3,6 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Left content inset — reproduces the left edge of the Highlights "โซลูชันของเรา"
+     heading (section pl 1.5rem + centered max-w-[90rem] + inner pl).
+     Used by full-bleed card scrollers so the first card lines up with the heading
+     while the row can still scroll off the right edge of the screen. */
+  --page-gutter: 3rem;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: calc(6.5rem + max(0px, (100vw - 91.5rem) / 2));
+  }
 }
 
 @theme inline {
