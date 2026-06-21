@@ -14,48 +14,43 @@ interface CrusherCard {
 }
 
 const cards: CrusherCard[] = [
+
     {
-        title: "Tracked Jaw Crusher",
-        description: "เครื่องโม่กรามแบบเคลื่อนที่ตีนตะขาบ ย้ายระหว่างไซต์งานได้สะดวก พร้อมทำงานได้ทันที",
-        footer: "Tracked Mobile",
-        image: "/products/tracked-jaw.png",
-    },
-    {
-        title: "Tracked Hydraulic Cone Crusher",
-        description: "เครื่องโม่กรวยไฮดรอลิกแบบเคลื่อนที่ สำหรับการบดขั้นกลางถึงละเอียดในงานภาคสนาม",
-        footer: "Tracked Mobile",
-        image: "/products/tracked-cone.png",
-    },
-    {
-        title: "Tracked Multi-Cylinder Hydraulic Cone Crusher",
-        description: "เครื่องโม่กรวยหลายสูบแบบเคลื่อนที่ กำลังผลิตสูง เหมาะกับงานบดหินปริมาณมาก",
-        footer: "Tracked Mobile",
-        image: "/products/tracked-multicone.jpeg",
-    },
-    {
-        title: "JW Series Jaw Crusher",
-        description: "เครื่องโม่กรามพร้อมระบบปรับ CSS ไฮดรอลิก แข็งแรงทนทาน รองรับทั้งแบบตีนตะขาบ ล้อ และติดตั้งอยู่กับที่",
-        footer: "Stationary · Jaw",
-        image: "/products/crusher-jw.png",
-    },
-    {
-        title: "GC Series Single-Cylinder Hydraulic Cone Crusher",
-        description: "บดหินแข็ง กรวด และเศษวัสดุก่อสร้าง ด้วยระบบบดอัจฉริยะ ลดต้นทุน เพิ่มประสิทธิภาพ และลดแรงงาน",
+        title: "GC Series Cone Crusher",
+        description: "บดหินแข็งและกรวด ระบบบดอัจฉริยะ ลดต้นทุน",
         footer: "Stationary · Cone",
         image: "/products/crusher-gc.png",
     },
     {
-        title: "TC Series Multi-Cylinder Hydraulic Cone Crusher",
-        description: "ให้หินคุณภาพสูง อัตราการบดสูง รูปทรงเม็ดดี พร้อมระบบไฮดรอลิกตั้งค่าและป้องกัน overload",
+        title: "TC Series Cone Crusher",
+        description: "หินคุณภาพสูง อัตราการบดสูง ป้องกัน overload",
         footer: "Stationary · Cone",
         image: "/products/crusher-tc.png",
     },
     {
-        title: "IH Series Horizontal Shaft Impact Crusher",
-        description: "ดีไซน์ไฮดรอลิกเต็มระบบ ควบคุมอัจฉริยะ บำรุงรักษาง่าย กำลังผลิตสูงและอายุการใช้งานยาว",
+        title: "IH Series Impact Crusher",
+        description: "ไฮดรอลิกเต็มระบบ บำรุงรักษาง่าย กำลังผลิตสูง",
         footer: "Stationary · Impact",
         image: "/products/crusher-ih.png",
-    }
+    },
+        {
+        title: "Tracked Jaw Crusher",
+        description: "เครื่องโม่กรามตีนตะขาบ ย้ายไซต์งานสะดวก",
+        footer: "Tracked Mobile",
+        image: "/products/tracked-jaw.png",
+    },
+    {
+        title: "Tracked Cone Crusher",
+        description: "โม่กรวยไฮดรอลิกเคลื่อนที่ บดกลางถึงละเอียด",
+        footer: "Tracked Mobile",
+        image: "/products/tracked-cone.png",
+    },
+    {
+        title: "Tracked Multi-Cone Crusher",
+        description: "โม่กรวยหลายสูบเคลื่อนที่ กำลังผลิตสูง",
+        footer: "Tracked Mobile",
+        image: "/products/tracked-multicone.jpeg",
+    },
 ];
 
 export default function Crusher() {
@@ -110,11 +105,11 @@ export default function Crusher() {
     };
 
     return (
-        <section id="crusher" className="pb-24 w-full min-h-screen bg-white overflow-x-hidden">
+        <section id="crusher" className="pb-24 w-full min-h-screen bg-[#F4F5F6] overflow-x-hidden">
             {/* Header — ขอบซ้ายตรงกับ "โซลูชันของเรา" ผ่าน --page-gutter */}
             <div className="mb-16 pr-6 pl-(--page-gutter)">
-                <p className="text-lg text-neutral-800 font-medium mb-2">Crusher</p>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-neutral-900 leading-tight mb-6">
+                <p className="text-lg text-neutral-800 font-medium mb-5">Crusher</p>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-tight mb-8">
                     เครื่องโม่หินครบไลน์
                 </h1>
                 <p className="text-xl md:text-2xl text-neutral-600 leading-relaxed max-w-4xl">
@@ -130,37 +125,41 @@ export default function Crusher() {
                 onPointerMove={onPointerMove}
                 onPointerUp={endDrag}
                 onPointerCancel={endDrag}
-                className="flex gap-8 w-full overflow-x-auto scroll-smooth snap-x snap-proximity pb-4 pr-6 pl-(--page-gutter) scroll-pl-(--page-gutter) cursor-grab active:cursor-grabbing select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                className="flex gap-8 w-full overflow-x-auto scroll-smooth snap-x snap-proximity pt-6 pb-10 pr-6 pl-(--page-gutter) scroll-pl-(--page-gutter) cursor-grab active:cursor-grabbing select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
                 {cards.map((card, index) => (
                     <div
                         key={index}
-                        className="flex shrink-0 snap-start flex-col w-[78%] sm:w-[46%] lg:w-[31%] xl:w-[24%] bg-gray-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                        className="flex h-[540px] shrink-0 snap-start flex-col w-[78%] sm:w-[46%] lg:w-[31%] xl:w-[24%] overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(0,0,0,0.24)]"
                     >
-                        {/* Image */}
-                        <div className="relative w-full aspect-4/3 bg-gray-200">
-                            <Image
-                                src={card.image}
-                                alt={card.title}
-                                fill
-                                sizes="(min-width:1280px) 24vw, (min-width:1024px) 31vw, (min-width:640px) 46vw, 78vw"
-                                className="object-cover"
-                            />
-                        </div>
-
-                        {/* Card Content */}
-                        <div className="flex-1 p-6">
-                            {card.footer && (
-                                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C71F2F] mb-3">
-                                    {card.footer}
-                                </p>
-                            )}
-                            <h3 className="text-lg font-semibold text-neutral-900 leading-snug mb-2">
+                        {/* Text Content */}
+                        <div className="px-7 pt-7">
+                            <div className="mb-2 h-5">
+                                {card.footer && (
+                                    <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C02834]">
+                                        {card.footer}
+                                    </span>
+                                )}
+                            </div>
+                            <h3 className="mb-2 text-xl font-semibold leading-snug tracking-tight text-neutral-800">
                                 {card.title}
                             </h3>
-                            <p className="text-sm text-neutral-500 leading-relaxed">
+                            <p className="text-sm font-normal leading-relaxed text-neutral-400 line-clamp-3">
                                 {card.description}
                             </p>
+                        </div>
+
+                        {/* Image — anchored to the bottom of the card */}
+                        <div className="flex min-h-0 flex-grow items-end justify-center">
+                            <div className="relative h-full w-[90%]">
+                                <Image
+                                    src={card.image}
+                                    alt={card.title}
+                                    fill
+                                    sizes="(min-width:1280px) 24vw, (min-width:1024px) 31vw, (min-width:640px) 46vw, 78vw"
+                                    className="object-contain object-bottom"
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}

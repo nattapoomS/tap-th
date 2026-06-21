@@ -5,7 +5,7 @@ import Exp from "@/components/exp";
 import Captions from "@/components/captions";
 import Highlights from "@/components/Highlights";
 import Crusher from "@/components/Crusher";
-import CTA from "@/components/CTA";
+// import CTA from "@/components/CTA";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
       <Captions />
       <Highlights />
       <Crusher />
-      <CTA />
+      {/* <CTA /> */}
     </main>
   );
 }

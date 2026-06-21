@@ -57,15 +57,15 @@ export default function Captions() {
     ];
 
     return (
-        <section id="captions" className="w-full min-h-screen bg-neutral-100 flex items-center justify-center p-5">
+        <section id="captions" className="w-full min-h-screen flex items-center justify-center p-5 bg-[#F4F5F6]">
             {/* Bento Grid Container - Full Width */}
             <div className="w-full  h-full grid grid-cols-1 lg:grid-cols-2 gap-5">
                 {/* Left Bento Box - Quote */}
-                <div className="bg-white rounded-[48px] p-8 md:p-12 lg:p-20 flex flex-col justify-center shadow-sm">
+                <div className="p-2 md:p-2 lg:p-2 flex flex-col justify-center ">
                     <span className="text-orange-500 pl-0 lg:pl-20 text-xl font-medium mb-8">วิธีคิด</span>
                     <blockquote
                         ref={quoteRef}
-                        className="text-3xl sm:text-4xl pl-0 lg:pl-20 md:text-5xl lg:text-6xl xl:text-7xl leading-tight text-neutral-800"
+                        className="text-2xl sm:text-3xl pl-0 lg:pl-20 md:text-4xl lg:text-5xl xl:text-6xl leading-tight text-neutral-800"
                     >
                         {quoteText.map((text, index) => {
                             const isQuote = text.includes('"');

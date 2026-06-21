@@ -45,11 +45,11 @@ export default function Exp() {
                         clipPath: "inset(0 50% 0 0 round 64px)", // Shows only left 50% with radius
                     },
                     {
-                        clipPath: "inset(0 0% 0 0 round 64px)", // Shows 100% without radius
-                        ease: "none", // Linear for scrub
+                        clipPath: "inset(0 2.1% 0 0 round 64px)", // Shows 100% without radius
+                        ease: "circ.out", // Linear for scrub
                         scrollTrigger: {
                             trigger: containerRef.current,
-                            start: "top top", // Start animation when container hits 80% viewport
+                            start: "5% 0", // Start animation when container hits 80% viewport
                             end: "95% 0", // Finish when center hits center
                             scrub: 1, // Smooth scrub
                             pin: true,
@@ -62,17 +62,17 @@ export default function Exp() {
                     {
                         x: -300,
                         opacity: 1,
-                        ease: "power1.out",
+                        ease: "circ.out",
                     },
                     {
                         x: 850,
-                        opacity: 1,
-                        ease: "power1.out",
+                        opacity: 0,
+                        ease: "power1.in",
                         scrollTrigger: {
                             trigger: containerRef.current,
-                            start: "-15% top",   // Sync with clipPath
-                            end: "center 0",    // Sync with clipPath
-                            scrub: 3,           // Sync speed
+                            start: "-45% top",   // Sync with clipPath
+                            end: "25% 0",    // Sync with clipPath
+                            scrub: 1,
                         },
                     }
                 );
@@ -83,9 +83,9 @@ export default function Exp() {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative w-full min-h-screen lg:h-screen overflow-hidden border-0 flex flex-col-reverse lg:block bg-neutral-100">
+        <section ref={containerRef} className="relative w-full min-h-screen lg:h-screen overflow-hidden border-0 flex flex-col-reverse lg:block bg-white">
             {/* Static Background Layer */}
-            <div className="absolute inset-0 w-full h-full z-[-1] bg-neutral-100" />
+            <div className="absolute inset-0 w-full h-full z-[-1]" />
 
             {/* Image Layer */}
             <div ref={imageRef} className="relative w-full h-[45vh] lg:absolute lg:inset-y-0 lg:top-5 lg:bottom-5 lg:left-5 lg:right-5 lg:h-auto z-0 rounded-none lg:rounded-[64px] overflow-hidden shrink-0">
@@ -99,7 +99,7 @@ export default function Exp() {
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-10 w-full lg:h-full flex flex-col lg:flex-row grow lg:mt-0">
+            <div className="relative z-10 w-full lg:h-full flex flex-col -ml-10 lg:flex-row grow lg:mt-0">
                 <div className="hidden lg:block lg:w-1/2" /> {/* Spacer for left side */}
 
                 <div ref={textRef} className="w-full lg:w-1/2 h-full flex flex-col justify-center items-center px-4 pt-20 pb-8 lg:p-0 lg:pr-40">
@@ -108,10 +108,10 @@ export default function Exp() {
                     <div className="w-full bg-transparent lg:bg-transparent shadow-none lg:shadow-none p-0 flex flex-col items-center">
                         <div className="flex items-center justify-center gap-3 mb-6 ">
 
-                            <span className="text-lg text-black font-medium tracking-wide">A better way to ride</span>
+                            <span className="text-3xl text-black font-medium tracking-wide">A better way to ride</span>
                         </div>
 
-                        <h3 className="text-xl text-black text-center leading-relaxed">
+                        <h3 className="text-3xl text-black text-center leading-relaxed">
                             ใช้เวลาของคุณกับสิ่งที่คุณสนใจและให้ Tap
                             <br className="hidden md:block" />
                             จัดการการงานในขณะที่คุณเพลิดเพลินกับการขับขี่ที่ราบรื่น
