@@ -2,36 +2,48 @@
 
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { Play, Pause } from "lucide-react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import cardImg37 from "@/app/img/card-content/image 37.png";
+import cardImg35 from "@/app/img/card-content/image 35.png";
+import cardImg351 from "@/app/img/card-content/image 35-1.png";
+import cardImg352 from "@/app/img/card-content/image 35-2.png";
 
 interface HighlightSlide {
     title: string;
     description: string;
-    image: string;
+    subDescription: string;
+    image: StaticImageData;
+    badge?: string;
 }
 
 const slides: HighlightSlide[] = [
     {
-        title: "Raw Material Conveying Unit",
-        description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่ วัสดุกัดกร่อนสูง ดินเหนียวและวัสดุเปียก พร้อม Heavy Duty Screen คัดแยกวัสดุ",
-        image: "/products/raw-material.jpg",
+        title: "LBNZ Counter-flow",
+        description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+        subDescription: "วัสดุกัดกร่อนสูง ดินเหนียว",
+        image: cardImg352,
+        badge: "ใหม่",
     },
     {
-        title: "Washing & Grading",
-        description: "NT & YS Series Washing Screen ล้างและคัดเกรดหินด้วยระบบสั่นสะเทือน เพิ่มอัตราการนำวัสดุกลับมาใช้",
-        image: "/products/washing-grading.png",
+        title: "LBG high-position",
+        description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+        subDescription: "วัสดุกัดกร่อนสูง ดินเหนียว",
+        image: cardImg35,
+        badge: "ใหม่",
     },
     {
-        title: "Fine Sand Recycling",
-        description: "FWD & FW Series Sand Washing Machine กู้คืนทรายละเอียด ลดการสูญเสียเนื้อทรายในกระบวนการล้าง",
-        image: "/products/fine-sand.png",
+        title: "LBGZ Integrated",
+        description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+        subDescription: "วัสดุกัดกร่อนสูง ดินเหนียว",
+        image: cardImg351,
     },
     {
-        title: "Aggregate Washing",
-        description: "XSJ60A Stone Washing Machine ล้างหินคุณภาพสูง พร้อมระบบบำบัดน้ำหมุนเวียน zero-emission",
-        image: "/products/aggregate.png",
+        title: "LBNZ Series",
+        description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+        subDescription: "วัสดุกัดกร่อนสูง ดินเหนียว",
+        image: cardImg37,
     },
 ];
 
@@ -143,22 +155,22 @@ export default function Highlights() {
     };
 
     return (
-        <section id="solutions" className="overflow-hidden w-full min-h-screen bg-white py-40 flex flex-col justify-center">
+        <section id="solutions" className="overflow-hidden w-full min-h-screen bg-[#F4F5F6] py-40 flex flex-col justify-center ">
             {/* Header — ขอบซ้ายผ่าน --page-gutter (ตรงกับ Crusher) */}
-            <div className="mb-12 pr-6 pl-[var(--page-gutter)]">
+            <div className="mb-20 pr-6 pl-[var(--page-gutter)]">
                 <h2
                     ref={headingRef}
-                    className="text-5xl md:text-6xl lg:text-7xl leading-tight tracking-wide drop-shadow-lg"
+                    className="text-5xl md:text-6xl lg:text-9xl leading-tight tracking-wide drop-shadow-lg"
                     style={{
-                        background: 'linear-gradient(185deg, #D9D9D9 0%, #767676 100%)',
+                        background: 'linear-gradient(185deg, #D9D9D9 0%, #000000ff 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
                         backgroundSize: '100% 100%',
-                        WebkitTextStroke: '1.5px #999999',
+                        WebkitTextStroke: '0.5px #979797ff',
                     }}
                 >
-                    โซลูชันของเรา
+                    ดูไฮไลท์ต่างๆ
                 </h2>
             </div>
 
@@ -170,7 +182,7 @@ export default function Highlights() {
                 onPointerMove={onPointerMove}
                 onPointerUp={endDrag}
                 onPointerCancel={endDrag}
-                className="flex gap-6 w-full overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pr-6 pl-[var(--page-gutter)] [scroll-padding-left:var(--page-gutter)] cursor-grab active:cursor-grabbing select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                className="flex gap-6 w-full overflow-x-auto scroll-smooth snap-x snap-mandatory pt-6 pb-10 pr-6 pl-[var(--page-gutter)] [scroll-padding-left:var(--page-gutter)] cursor-grab active:cursor-grabbing select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                 style={{
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
@@ -179,35 +191,36 @@ export default function Highlights() {
                     {slides.map((slide, index) => (
                         <div
                             key={index}
-                            className="flex-shrink-0 w-[85%] md:w-[60%] lg:w-[45%] snap-start"
+                            className="flex-shrink-0 w-[78%] sm:w-[55%] md:w-[40%] lg:w-[28%] snap-start"
                         >
                             {/* Card */}
-                            <div className="bg-gray-100 rounded-[32px] overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                {/* Image */}
-                                <div className="relative w-full aspect-[16/10] bg-gradient-to-br from-blue-100 to-blue-200">
+                            <div className="flex h-[620px] flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(0,0,0,0.24)]">
+                                {/* Text Content */}
+                                <div className="px-8 pt-9">
+                                    <div className="mb-3 h-6">
+                                        {slide.badge && (
+                                            <span className="text-sm font-semibold text-[#C02834]">
+                                                {slide.badge}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <h3 className="mb-4 text-3xl font-semibold leading-tight tracking-tight text-neutral-800">
+                                        {slide.title}
+                                    </h3>
+                                    <p className="mb-1.5 text-base font-medium leading-relaxed text-neutral-700">
+                                        {slide.description}
+                                    </p>
+                                    <p className="text-base font-normal text-neutral-400">
+                                        {slide.subDescription}
+                                    </p>
+                                </div>
+                                {/* Image — anchored to the bottom of the card */}
+                                <div className="relative flex flex-grow items-end justify-center">
                                     <Image
                                         src={slide.image}
                                         alt={slide.title}
-                                        fill
-                                        className="object-cover"
+                                        className="h-auto max-h-full w-[90%] object-contain object-bottom"
                                     />
-                                </div>
-                                {/* Text Content */}
-                                <div className="p-8">
-                                    <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#C71F2F] mb-3">
-                                        <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
-                                        <span
-                                            className="h-px w-12"
-                                            style={{ background: "linear-gradient(to right,#C71F2F,#C71F2F,#c71f3075,#c71f3000)" }}
-                                        />
-                                        <span className="text-neutral-400">Step {index + 1} of {slides.length}</span>
-                                    </p>
-                                    <h3 className="text-2xl md:text-3xl font-medium text-neutral-800 leading-snug mb-2">
-                                        {slide.title}
-                                    </h3>
-                                    <p className="text-lg md:text-xl text-neutral-500 font-light">
-                                        {slide.description}
-                                    </p>
                                 </div>
                             </div>
                         </div>

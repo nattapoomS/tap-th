@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ดูไฮไลท์ต่างๆ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f4f5f7;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --text-light-gray: #999999;
+            --badge-red: #C02834;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Prompt', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .header-section {
+            margin-top: 60px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 48px;
+            color: #4a4a4a;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .carousel-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1400px;
+            justify-content: center;
+            /* หากต้องการให้เลื่อนได้ ให้เปลี่ยน justify-content เป็น flex-start และเปิด overflow-x */
+            /* overflow-x: auto; */
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            width: 350px;
+            height: 500px;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .card-content {
+            padding: 30px 25px 0 25px;
+            z-index: 2;
+        }
+
+        .badge-container {
+            height: 20px;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            color: var(--badge-red);
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+            letter-spacing: -0.3px;
+        }
+
+        .card-desc {
+            font-size: 11px;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin: 0 0 5px 0;
+            line-height: 1.5;
+        }
+
+        .card-subdesc {
+            font-size: 11px;
+            color: var(--text-light-gray);
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .card-image-container {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .card-image-container img {
+            width: 90%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: bottom;
+            /* ลบ filter นี้ออกเมื่อใช้รูปจริง */
+            filter: grayscale(100%) contrast(1.2); 
+        }
+
+        /* จำลองการเห็นการ์ดใบที่ 4 ครึ่งเดียวทางขวา */
+        .card.partial {
+            margin-right: -150px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <h1 class="main-title"></h1>
+    </div>
+
+    <div class="carousel-container">
+        
+        <div class="card">
+            <div class="card-content">
+                <div class="badge-container">
+                    <span class="badge">ใหม่</span>
+                </div>
+                <h2 class="card-title">LBNZ Counter-flow</h2>
+                <p class="card-desc">NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่</p>
+                <p class="card-subdesc">วัสดุกัดกร่อนสูง ดินเหนียว</p>
+            </div>
+            <div class="card-image-container">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="LBNZ Counter-flow machinery">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <div class="badge-container">
+                    <span class="badge">ใหม่</span>
+                </div>
+                <h2 class="card-title">LBG high-position</h2>
+                <p class="card-desc">NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่</p>
+                <p class="card-subdesc">วัสดุกัดกร่อนสูง ดินเหนียว</p>
+            </div>
+            <div class="card-image-container">
+                <img src="https://images.unsplash.com/photo-1531682121983-2070fbf1e2e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="LBG high-position machinery">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <div class="badge-container">
+                    </div>
+                <h2 class="card-title">LBGZ Integrated</h2>
+                <p class="card-desc">NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่</p>
+                <p class="card-subdesc">วัสดุกัดกร่อนสูง ดินเหนียว</p>
+            </div>
+            <div class="card-image-container">
+                <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="LBGZ Integrated machinery">
+            </div>
+        </div>
+
+        <div class="card partial">
+            <div class="card-content">
+                <div class="badge-container">
+                    <span class="badge"></span>
+                </div>
+                <h2 class="card-title">LBNZ Series</h2>
+                <p class="card-desc">NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่</p>
+                <p class="card-subdesc">วัสดุกัดกร่อนสูง ดินเหนียว</p>
+            </div>
+            <div class="card-image-container">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Machinery">
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
