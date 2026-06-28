@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const performances = [
@@ -36,6 +36,17 @@ export default function PerformanceEvaluationPage() {
   const [remark, setRemark] = useState("");
   const [tooltip, setTooltip] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [config, setConfig] = useState({ performances, tooltips });
+
+  // Add useEffect to fetch config from api
+  useEffect(() => {
+    fetch('/api/config')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.performances?.length) setConfig(data);
+      })
+      .catch(console.error);
+  }, []);
 
   const handleSelect = (id: number, rating: Rating) => {
     setAnswers((prev) => ({ ...prev, [id]: rating }));
@@ -43,7 +54,7 @@ export default function PerformanceEvaluationPage() {
 
   const handleSubmit = () => {
     const data = {
-      answers: performances.map((p) => ({
+      answers: config.performances.map((p) => ({
         id: p.id,
         label: `${p.label} (${p.labelTh})`,
         rating: answers[p.id] ?? null,
@@ -124,7 +135,7 @@ export default function PerformanceEvaluationPage() {
           </div>
 
           {/* Rows */}
-          {performances.map((p, idx) => (
+          {config.performances.map((p, idx) => (
             <div
               key={p.id}
               className={`grid grid-cols-[1fr_auto_repeat(4,80px)] px-6 py-4 items-center border-b border-gray-100 last:border-0 ${
@@ -156,7 +167,7 @@ export default function PerformanceEvaluationPage() {
                 </button>
                 {tooltip === p.id && (
                   <div className="absolute z-10 left-8 top-0 w-60 bg-gray-800 text-white text-xs rounded-lg px-3 py-2 shadow-lg">
-                    {tooltips[p.id]}
+                    {config.tooltips[p.id as keyof typeof config.tooltips]}
                   </div>
                 )}
               </div>

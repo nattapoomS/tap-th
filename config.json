@@ -1,0 +1,74 @@
+{
+  "crusher": [
+    {
+      "title": "GC Series ",
+      "description": "บดหินแข็งและกรวด ระบบบดอัจฉริยะ ลดต้นทุน",
+      "footer": "Stationary · Cone",
+      "image": "/products/crusher-gc.png"
+    },
+    {
+      "title": "TC Series Cone Crusher",
+      "description": "หินคุณภาพสูง อัตราการบดสูง ป้องกัน overload",
+      "footer": "Stationary · Cone",
+      "image": "/products/crusher-tc.png"
+    },
+    {
+      "title": "IH Series Impact Crusher",
+      "description": "ไฮดรอลิกเต็มระบบ บำรุงรักษาง่าย กำลังผลิตสูง",
+      "footer": "Stationary · Impact",
+      "image": "/products/crusher-ih.png"
+    },
+    {
+      "title": "Tracked Jaw Crusher",
+      "description": "เครื่องโม่กรามตีนตะขาบ ย้ายไซต์งานสะดวก",
+      "footer": "Tracked Mobile",
+      "image": "/img/card-content/1782639766123-HS7.jpg"
+    },
+    {
+      "title": "Tracked Cone Crusher",
+      "description": "โม่กรวยไฮดรอลิกเคลื่อนที่ บดกลางถึงละเอียด",
+      "footer": "Tracked Mobile",
+      "image": "/img/card-content/1782639773772-HS5.jpg"
+    },
+    {
+      "title": "Tracked Multi-Cone Crusher",
+      "description": "โม่กรวยหลายสูบเคลื่อนที่ กำลังผลิตสูง",
+      "footer": "Tracked Mobile",
+      "image": "/img/card-content/1782639756112-HS2.jpg"
+    },
+    {
+      "title": "New Crusher Card",
+      "description": "Description...",
+      "footer": "",
+      "image": "/img/card-content/1782639781140-HS8.jpg"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "LBNZ Counter-flow",
+      "description": "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+      "subDescription": "วัสดุกัดกร่อนสูง ดินเหนียว",
+      "image": "/img/card-content/image 35-2.png",
+      "badge": "ใหม่"
+    },
+    {
+      "title": "LBG high-position",
+      "description": "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+      "subDescription": "วัสดุกัดกร่อนสูง ดินเหนียว",
+      "image": "/img/card-content/image 35.png",
+      "badge": "ใหม่"
+    },
+    {
+      "title": "LBGZ Integrated",
+      "description": "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+      "subDescription": "วัสดุกัดกร่อนสูง ดินเหนียว",
+      "image": "/img/card-content/image 35-1.png"
+    },
+    {
+      "title": "LBNZ Series",
+      "description": "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
+      "subDescription": "วัสดุกัดกร่อนสูง ดินเหนียว",
+      "image": "/img/card-content/image 37.png"
+    }
+  ]
+}
