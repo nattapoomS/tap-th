@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const uploadDir = path.join(process.cwd(), 'public/img/card-content');
+const uploadDir = path.join(process.cwd(), 'uploads/card-content');
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -40,5 +40,5 @@ export async function POST(req: Request) {
   fs.mkdirSync(uploadDir, { recursive: true });
   fs.writeFileSync(filePath, buffer);
 
-  return NextResponse.json({ url: `/img/card-content/${fileName}` });
+  return NextResponse.json({ url: `/api/images/card-content/${fileName}` });
 }
