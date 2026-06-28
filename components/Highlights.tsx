@@ -10,15 +10,15 @@ import cardImg35 from "@/app/img/card-content/image 35.png";
 import cardImg351 from "@/app/img/card-content/image 35-1.png";
 import cardImg352 from "@/app/img/card-content/image 35-2.png";
 
-interface HighlightSlide {
+export interface HighlightSlide {
     title: string;
     description: string;
     subDescription: string;
-    image: StaticImageData;
+    image: string | StaticImageData;
     badge?: string;
 }
 
-const slides: HighlightSlide[] = [
+const defaultSlides: HighlightSlide[] = [
     {
         title: "LBNZ Counter-flow",
         description: "NFLG NAF1038 chain feeder รองรับวัสดุขนาดใหญ่",
@@ -47,9 +47,35 @@ const slides: HighlightSlide[] = [
     },
 ];
 
-export default function Highlights() {
+export default function Highlights({ 
+    previewData,
+    activeIndex,
+    onSelect,
+    disableAnimation
+}: { 
+    previewData?: HighlightSlide[],
+    activeIndex?: number,
+    onSelect?: (idx: number) => void,
+    disableAnimation?: boolean
+}) {
+    const [slides, setSlides] = useState<HighlightSlide[]>(previewData || defaultSlides);
+
+    useEffect(() => {
+        if (previewData) {
+            setSlides(previewData);
+        } else {
+            fetch('/api/config')
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.highlights?.length) setSlides(data.highlights);
+                })
+                .catch(console.error);
+        }
+    }, [previewData]);
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
@@ -106,61 +132,74 @@ export default function Highlights() {
         setIsPlaying(!isPlaying);
     };
 
-    // การ์ดค่อยๆ โผล่แบบ stagger ตอน scroll เข้ามา
     useLayoutEffect(() => {
-        const el = scrollContainerRef.current;
+        if (disableAnimation) return; // ปิด GSAP ในหน้า Preview
+        const el = sectionRef.current;
         if (!el) return;
         gsap.registerPlugin(ScrollTrigger);
+        
         const mm = gsap.matchMedia();
-        mm.add("(prefers-reduced-motion: no-preference)", () => {
-            gsap.from(headingRef.current, {
+        mm.add({
+            reduceMotion: "(prefers-reduced-motion: reduce)"
+        }, (context) => {
+            const reduceMotion = context.conditions?.reduceMotion;
+            if (reduceMotion) return;
+
+            gsap.from(".highlight-heading", {
                 y: 30,
                 autoAlpha: 0,
                 duration: 0.6,
                 ease: "power2.out",
-                scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
+                scrollTrigger: { trigger: ".highlight-heading", start: "top 85%" },
             });
-            // .slice() กัน div peek ท้ายสุด (ไม่ใช่การ์ด)
-            const cards = gsap.utils.toArray<HTMLElement>(el.children).slice(0, slides.length);
-            gsap.from(cards, {
+
+            gsap.from(".highlight-card", {
                 y: 40,
                 autoAlpha: 0,
                 duration: 0.6,
                 ease: "power2.out",
                 stagger: 0.1,
-                scrollTrigger: { trigger: el, start: "top 80%" },
+                scrollTrigger: { trigger: scrollContainerRef.current, start: "top 80%" },
             });
-        });
+        }, el);
+
         return () => mm.revert();
-    }, []);
+    }, [disableAnimation, slides]);
 
     // ลากด้วยเมาส์: กดค้างแล้วลากเพื่อเลื่อน
-    const drag = useRef({ down: false, startX: 0, startScroll: 0 });
+    const drag = useRef({ down: false, startX: 0, startScroll: 0, didDrag: false });
 
     const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
         const el = scrollContainerRef.current;
         if (!el) return;
-        drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft };
+        drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft, didDrag: false };
         el.setPointerCapture(e.pointerId);
     };
 
     const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         const el = scrollContainerRef.current;
         if (!el || !drag.current.down) return;
-        el.scrollLeft = drag.current.startScroll - (e.clientX - drag.current.startX);
+        const dx = e.clientX - drag.current.startX;
+        if (Math.abs(dx) > 5) drag.current.didDrag = true;
+        el.scrollLeft = drag.current.startScroll - dx;
     };
 
-    const endDrag = () => {
+    const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (!drag.current.didDrag && onSelect) {
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const card = target?.closest('[data-card-index]') as HTMLElement | null;
+            if (card) onSelect(Number(card.dataset.cardIndex));
+        }
         drag.current.down = false;
     };
 
     return (
-        <section id="solutions" className="overflow-hidden w-full min-h-screen bg-[#F4F5F6] py-40 flex flex-col justify-center ">
+        <section ref={sectionRef} id="solutions" className="overflow-hidden w-full min-h-screen bg-[#F4F5F6] py-40 flex flex-col justify-center ">
             {/* Header — ขอบซ้ายผ่าน --page-gutter (ตรงกับ Crusher) */}
             <div className="mb-20 pr-6 pl-[var(--page-gutter)]">
                 <h2
                     ref={headingRef}
-                    className="text-5xl md:text-6xl lg:text-9xl leading-tight tracking-wide drop-shadow-lg"
+                    className="highlight-heading text-5xl md:text-6xl lg:text-9xl leading-tight tracking-wide drop-shadow-lg"
                     style={{
                         background: 'linear-gradient(185deg, #D9D9D9 0%, #000000ff 100%)',
                         WebkitBackgroundClip: 'text',
@@ -191,10 +230,17 @@ export default function Highlights() {
                     {slides.map((slide, index) => (
                         <div
                             key={index}
-                            className="flex-shrink-0 w-[78%] sm:w-[55%] md:w-[40%] lg:w-[28%] snap-start"
+                            data-card-index={index}
+                            className={`highlight-card flex-shrink-0 w-[78%] sm:w-[55%] md:w-[40%] lg:w-[28%] snap-start transition-all duration-300 ${onSelect ? "cursor-pointer" : ""} ${
+                                activeIndex === index ? "scale-[1.02]" : ""
+                            }`}
                         >
                             {/* Card */}
-                            <div className="flex h-[620px] flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(0,0,0,0.24)]">
+                            <div className={`flex h-[620px] flex-col overflow-hidden rounded-3xl bg-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(0,0,0,0.24)] ${
+                                activeIndex === index 
+                                    ? "ring-4 ring-blue-500 border-none" 
+                                    : "border border-black/5"
+                            }`}>
                                 {/* Text Content */}
                                 <div className="px-8 pt-9">
                                     <div className="mb-3 h-6">
@@ -216,11 +262,20 @@ export default function Highlights() {
                                 </div>
                                 {/* Image — anchored to the bottom of the card */}
                                 <div className="relative flex flex-grow items-end justify-center">
-                                    <Image
-                                        src={slide.image}
-                                        alt={slide.title}
-                                        className="h-auto max-h-full w-[90%] object-contain object-bottom"
-                                    />
+                                    {slide.image ? (
+                                        <Image
+                                            src={slide.image}
+                                            alt={slide.title}
+                                            width={600}
+                                            height={400}
+                                            draggable={false}
+                                            className="h-auto max-h-full w-[90%] object-contain object-bottom pointer-events-none select-none"
+                                        />
+                                    ) : (
+                                        <div className="h-full w-[90%] flex items-center justify-center mb-6 bg-gray-100/80 rounded-2xl border-2 border-dashed border-gray-200">
+                                            <span className="text-gray-400 text-sm font-medium">ยังไม่มีรูปภาพ</span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

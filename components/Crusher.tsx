@@ -1,19 +1,19 @@
 "use client";
 
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-interface CrusherCard {
+export interface CrusherCard {
     title: string;
     description: string;
     footer?: string;
     image: string;
 }
 
-const cards: CrusherCard[] = [
+const defaultCards: CrusherCard[] = [
 
     {
         title: "GC Series Cone Crusher",
@@ -53,17 +53,47 @@ const cards: CrusherCard[] = [
     },
 ];
 
-export default function Crusher() {
+export default function Crusher({ 
+    previewData,
+    activeIndex,
+    onSelect,
+    disableAnimation
+}: { 
+    previewData?: CrusherCard[],
+    activeIndex?: number,
+    onSelect?: (idx: number) => void,
+    disableAnimation?: boolean
+}) {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const [cards, setCards] = useState<CrusherCard[]>(previewData || defaultCards);
 
-    // การ์ดค่อยๆ โผล่แบบ stagger ตอน scroll เข้ามา
+    useEffect(() => {
+        if (previewData) {
+            setCards(previewData);
+        } else {
+            fetch('/api/config')
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.crusher?.length) setCards(data.crusher);
+                })
+                .catch(console.error);
+        }
+    }, [previewData]);
+
     useLayoutEffect(() => {
+        if (disableAnimation) return; // ปิด GSAP ในหน้า Preview
         const el = scrollRef.current;
         if (!el) return;
         gsap.registerPlugin(ScrollTrigger);
+        
         const mm = gsap.matchMedia();
-        mm.add("(prefers-reduced-motion: no-preference)", () => {
-            gsap.from(el.children, {
+        mm.add({
+            reduceMotion: "(prefers-reduced-motion: reduce)"
+        }, (context) => {
+            const reduceMotion = context.conditions?.reduceMotion;
+            if (reduceMotion) return;
+
+            gsap.from(".crusher-card", {
                 y: 40,
                 autoAlpha: 0,
                 duration: 0.6,
@@ -71,9 +101,10 @@ export default function Crusher() {
                 stagger: 0.08,
                 scrollTrigger: { trigger: el, start: "top 80%" },
             });
-        });
+        }, el); // scope to scrollRef
+
         return () => mm.revert();
-    }, []);
+    }, [disableAnimation, cards]);
 
     const scrollByCard = (dir: number) => {
         const el = scrollRef.current;
@@ -85,22 +116,29 @@ export default function Crusher() {
     };
 
     // ลากด้วยเมาส์: กดค้างแล้วลากเพื่อเลื่อน
-    const drag = useRef({ down: false, startX: 0, startScroll: 0 });
+    const drag = useRef({ down: false, startX: 0, startScroll: 0, didDrag: false });
 
     const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
         const el = scrollRef.current;
         if (!el) return;
-        drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft };
+        drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft, didDrag: false };
         el.setPointerCapture(e.pointerId);
     };
 
     const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         const el = scrollRef.current;
         if (!el || !drag.current.down) return;
-        el.scrollLeft = drag.current.startScroll - (e.clientX - drag.current.startX);
+        const dx = e.clientX - drag.current.startX;
+        if (Math.abs(dx) > 5) drag.current.didDrag = true;
+        el.scrollLeft = drag.current.startScroll - dx;
     };
 
-    const endDrag = () => {
+    const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (!drag.current.didDrag && onSelect) {
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const card = target?.closest('[data-card-index]') as HTMLElement | null;
+            if (card) onSelect(Number(card.dataset.cardIndex));
+        }
         drag.current.down = false;
     };
 
@@ -130,7 +168,12 @@ export default function Crusher() {
                 {cards.map((card, index) => (
                     <div
                         key={index}
-                        className="flex h-[540px] shrink-0 snap-start flex-col w-[78%] sm:w-[46%] lg:w-[31%] xl:w-[24%] overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(0,0,0,0.24)]"
+                        data-card-index={index}
+                        className={`crusher-card flex h-[460px] shrink-0 snap-start flex-col w-[78%] sm:w-[46%] lg:w-[31%] xl:w-[24%] overflow-hidden rounded-3xl bg-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition-all duration-300 hover:shadow-[0_14px_32px_rgba(0,0,0,0.24)] ${
+                            activeIndex === index 
+                                ? "ring-4 ring-blue-500 border-none scale-[1.02]" 
+                                : "border border-black/5"
+                        } ${onSelect ? "cursor-pointer" : ""}`}
                     >
                         {/* Text Content */}
                         <div className="px-7 pt-7">
@@ -152,13 +195,19 @@ export default function Crusher() {
                         {/* Image — anchored to the bottom of the card */}
                         <div className="flex min-h-0 flex-grow items-end justify-center">
                             <div className="relative h-full w-[90%]">
-                                <Image
-                                    src={card.image}
-                                    alt={card.title}
-                                    fill
-                                    sizes="(min-width:1280px) 24vw, (min-width:1024px) 31vw, (min-width:640px) 46vw, 78vw"
-                                    className="object-contain object-bottom"
-                                />
+                                {card.image ? (
+                                    <Image
+                                        src={card.image}
+                                        alt={card.title}
+                                        fill
+                                        className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out z-10 pointer-events-none select-none"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
+                                ) : (
+                                    <div className="absolute inset-0 flex items-center justify-center m-4 bg-gray-100/80 rounded-2xl border-2 border-dashed border-gray-200">
+                                        <span className="text-gray-400 text-sm font-medium">ยังไม่มีรูปภาพ</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
